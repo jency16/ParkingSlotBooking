@@ -1,0 +1,18 @@
+databases:
+  - name: Booking
+    databaseName: booking_f5gx
+    user: booking_f5gx_user
+
+services:
+  - type: web
+    name: ParkingSlot
+    runtime: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: Booking
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
