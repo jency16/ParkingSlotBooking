@@ -1,7 +1,7 @@
 databases:
   - name: Booking
-    databaseName: booking_f5gx
-    user: booking_f5gx_user
+    databaseName: booking_ti4e
+    user: booking_ti4e_user
 
 services:
   - type: web
