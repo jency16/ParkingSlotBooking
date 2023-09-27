@@ -1,0 +1,30 @@
+<h1 style="text-align: center">First Entries</h1>
+
+<% if @slot_bookings.present? %>
+  <table class="table table-hover table-light" style="text-align: center" >
+    <thead class="table-dark">
+    <tr>
+      <th>Vehicle number</th>
+      <th>Entry Date</th>
+      <th>Entry Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @slot_bookings.each do |slot_usage| %>
+      <tr>
+        <td><%= slot_usage.vehicle_registration_number %></td>
+        <td><%= slot_usage.first_entry_time.to_datetime.strftime('%B %d, %Y') %></td>
+        <td><%= slot_usage.first_entry_time.to_datetime.strftime('%l:%M %p') %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No entries.</p>
+<% end %>
+
+<%= link_to "Back", slot_bookings_path, class: "btn btn-secondary" %>
+
+<div class="pagination justify-content-center">
+  <%= pagy_bootstrap_nav(@pagy).html_safe %>
+</div>

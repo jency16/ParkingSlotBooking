@@ -1,0 +1,30 @@
+<h1 style="text-align: center">Book your slot !</h1>
+
+<%= form_with model: @slot_booking, url: slot_bookings_path, method: :post do |form| %>
+  <% if @slot_booking.errors.any? %>
+    <div id="error_explanation" style="color: red">
+      <ul>
+        <% @slot_booking.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :entry_point_id, "Entrance number:" %><span style="color: red">*</span>
+    <%= form.collection_select :entry_point_id, @entry_points, :id, :name, prompt: 'Select an entry point', class: "form-control" %>
+  </div>
+  <br>
+  <div class="field">
+    <%= form.label :vehicle_registration_number, "Enter vehicle registration number:" %><span style="color: red">*</span>
+    <%= form.text_field :vehicle_registration_number, class: "form-control-sm" %>
+  </div>
+  <br>
+  <div class="actions">
+    <%= form.submit "Book Slot", class: "btn btn-primary mb-3" %>
+  </div>
+<% end %>
+<br><br>
+<%= link_to "Back", slot_bookings_path, class: "btn btn-secondary" %>
+

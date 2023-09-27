@@ -1,0 +1,41 @@
+<h1 style="text-align: center">Allocation history</h1>
+
+<%= form_tag(allocation_history_slot_bookings_path , method: :get) do %>
+  <div class="field">
+    <%= label_tag 'vehicle_number', 'Enter a vehicle number:' %>
+    <%= text_field_tag 'vehicle_number', params[:vehicle_registration_number], class: "form-control-sm" %>
+  </div>
+  <br>
+  <%= submit_tag 'Show History', class: "btn btn-primary btn-sm" %>
+<% end %>
+<br>
+<% if @slot_bookings.present? %>
+  <h2>History of vehicle <%= @vehicle_number %>:</h2>
+  <table class="table table-hover table-light" style="text-align: center" >
+    <thead class="table-dark">
+    <tr>
+      <th>Entered Slot</th>
+      <th>Entry Date</th>
+      <th>Entry Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @slot_bookings.each do |slot_usage| %>
+      <tr>
+        <td><%= slot_usage.slot.number %></td>
+        <td><%= slot_usage.entry_time.strftime('%B %d, %Y') %></td>
+        <td><%= slot_usage.entry_time.strftime('%l:%M %p') %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No allocation history.</p>
+<% end %>
+<br>
+<%= link_to "Back", slot_bookings_path, class: "btn btn-secondary" %>
+
+<br>
+<div class="pagination justify-content-center">
+  <%= pagy_bootstrap_nav(@pagy).html_safe %>
+</div>
